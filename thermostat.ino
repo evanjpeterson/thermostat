@@ -2,9 +2,7 @@
 #include <stdint.h>
 #include <EEPROM.h>
 #include <WiFi.h>
-
-const char* ssid = "";
-const char* password = "";
+#include "wifi_credentials.h"
 
 const size_t EEPROM_SIZE = 1; // bytes
 const uint8_t EEPROM_LED = 0;
@@ -97,9 +95,7 @@ void setup() {
   digitalWrite(LED_PIN, getStoredLedState());
 
   // Connect to Wi-Fi network with SSID and password
-  Serial.print("Connecting to ");
-  Serial.println(ssid);
-  WiFi.begin(ssid, password);
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
