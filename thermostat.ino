@@ -4,7 +4,7 @@
 #include <WiFi.h>
 #include "wifi_credentials.h"
 
-const size_t EEPROM_SIZE = 1; // bytes
+const size_t EEPROM_SIZE = 1;
 const uint8_t EEPROM_LED = 0;
 const uint8_t LED_PIN = 2;
 const uint16_t timeoutTime = 2000; // ms
@@ -31,8 +31,8 @@ void sendResponse(WiFiClient &client) {
     <!DOCTYPE html>
     <html>
     <head>
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="icon" href="data:,">
+      <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+      <title>Thermostat HQ</title>
       <style>
         html {
           font-family: Helvetica;
@@ -56,30 +56,40 @@ void sendResponse(WiFiClient &client) {
       </style>
     </head>
     <body>
-      <h1>Thermostat HQ</h1>
+      <div id="root"></div>
+      <script type="text/javascript">
+        var thermostatGlobals = {
   )");
 
-  if (ledState == LOW) {
-    client.println(R"(
-      <p>LED is currently off</p>
-      <p>
-        <a href="/led/on">
-          <button class="button">Turn on</button>
-        </a>
-      </p>
-    )");
-  } else {
-    client.println(R"(
-      <p>LED is currently on</p>
-      <p>
-        <a href="/led/off">
-          <button class="button button2">Turn off</button>
-        </a>
-      </p>
-    )");
-  } 
+  // Inject any data that JS needs.
+  client.print("'ledEnabled': ");
+  client.print(ledState == HIGH ? "true" : "false");
+  client.print(",\n");
 
   client.println(R"(
+        };
+      </script>
+      <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+      <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+      <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+      <script type="text/babel">
+        const App = ({ ledEnabled }) => (
+          <>
+            <h1>Thermostat HQ</h1>
+            <p>LED is currently {ledEnabled ? 'on' : 'off'}</p>
+            <p>
+              <a href={ledEnabled ? '/led/off' : '/led/on'}>
+                <button className={ledEnabled ? 'button' : 'button button2'}>Flip</button>
+              </a>
+            </p>
+          </>
+        );
+
+        ReactDOM.render(
+          <App ledEnabled={thermostatGlobals.ledEnabled || false }/>,
+          document.getElementById('root')
+        );
+      </script>
     </body>
     </html>
   )");
@@ -166,7 +176,6 @@ void loop() {
 
     // Next, send a response back to the client.
     sendResponse(client);
-
     // Done responding to the client, no need to wait for the timeout to complete.
     break;
   }
