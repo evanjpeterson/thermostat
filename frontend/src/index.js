@@ -6,7 +6,7 @@ import { App } from "./components/app/App.jsx";
 const root = document.createElement("div");
 document.body.appendChild(root);
 
-const thermostatGlobals = thermostatGlobals || {};
+const thermostatGlobals = window.thermostatGlobals || {};
 
 ReactDOM.render(
   <React.StrictMode>
