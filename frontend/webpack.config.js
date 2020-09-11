@@ -1,3 +1,5 @@
+var path = require("path");
+
 module.exports = {
   module: {
     rules: [
@@ -16,5 +18,8 @@ module.exports = {
   },
   output: {
     filename: "thermostat-control.bundle.js",
+  },
+  devServer: {
+    contentBase: path.join(__dirname, "dist"),
   },
 };
