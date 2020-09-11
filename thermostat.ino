@@ -32,7 +32,7 @@ void sendResponse(WiFiClient &client) {
     <html>
     <head>
       <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
-      <title>Thermostat HQ</title>
+      <title>Thermostat Control</title>
       <style>
         html {
           font-family: Helvetica;
@@ -56,7 +56,7 @@ void sendResponse(WiFiClient &client) {
       </style>
     </head>
     <body>
-      <div id="root"></div>
+      <noscript>You need to enable JavaScript to run this app.</noscript>
       <script type="text/javascript">
         var thermostatGlobals = {
   )");
@@ -69,9 +69,6 @@ void sendResponse(WiFiClient &client) {
   client.println(R"(
         };
       </script>
-      <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
-      <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
-      <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
       <script type="text/babel">
         const App = ({ ledEnabled }) => (
           <>
