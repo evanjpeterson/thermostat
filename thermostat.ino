@@ -29,31 +29,12 @@ void sendResponse(WiFiClient &client) {
   // Send the response body (the webpage).
   client.println(R"(
     <!DOCTYPE html>
-    <html>
+    <html lang="en">
     <head>
-      <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="shortcut icon" href="data:," />
       <title>Thermostat Control</title>
-      <style>
-        html {
-          font-family: Helvetica;
-          display: inline-block;
-          margin: 0px auto;
-          text-align: center;
-        }
-        .button {
-          background-color: #4CAF50;
-          border: none;
-          color: white;
-          padding: 16px 40px;
-          text-decoration: none;
-          font-size: 30px;
-          margin: 2px;
-          cursor: pointer;
-        }
-        .button2 {
-          background-color: #555555;
-        }
-      </style>
     </head>
     <body>
       <noscript>You need to enable JavaScript to run this app.</noscript>
@@ -68,24 +49,6 @@ void sendResponse(WiFiClient &client) {
 
   client.println(R"(
         };
-      </script>
-      <script type="text/babel">
-        const App = ({ ledEnabled }) => (
-          <>
-            <h1>Thermostat HQ</h1>
-            <p>LED is currently {ledEnabled ? 'on' : 'off'}</p>
-            <p>
-              <a href={ledEnabled ? '/led/off' : '/led/on'}>
-                <button className={ledEnabled ? 'button' : 'button button2'}>Flip</button>
-              </a>
-            </p>
-          </>
-        );
-
-        ReactDOM.render(
-          <App ledEnabled={thermostatGlobals.ledEnabled || false }/>,
-          document.getElementById('root')
-        );
       </script>
     </body>
     </html>
