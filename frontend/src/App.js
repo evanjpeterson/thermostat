@@ -3,7 +3,7 @@ import React from 'react';
 function App() {
   return (
     <>
-      <header>Thermostat HQ</header>
+      <header>Thermostat Control</header>
     </>
   );
 }
