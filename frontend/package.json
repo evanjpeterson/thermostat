@@ -15,11 +15,12 @@
     "babel-plugin-styled-components": "^1.11.1",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0"
+    "webpack-dev-server": "^3.11.0",
+    "webpack-merge": "^5.1.4"
   },
   "scripts": {
-    "build": "webpack --colors",
-    "start": "webpack-dev-server --open"
+    "build": "webpack --colors --config webpack.prod.js",
+    "start": "webpack-dev-server --open --config webpack.dev.js"
   },
   "babel": {
     "presets": [

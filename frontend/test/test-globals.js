@@ -1,3 +1,3 @@
-var thermostatGlobals = {
+const thermostatGlobals = {
   ledEnabled: true,
 };
