@@ -1,0 +1,3 @@
+var thermostatGlobals = {
+  ledEnabled: true,
+};

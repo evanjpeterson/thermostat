@@ -17,10 +17,10 @@ module.exports = {
     ],
   },
   output: {
-    path: path.join(__dirname, "build"),
+    path: path.join(__dirname, "test"),
     filename: "thermostat-control.bundle.js",
   },
   devServer: {
-    contentBase: path.join(__dirname, "build"),
+    contentBase: path.join(__dirname, "test"),
   },
 };

@@ -50,6 +50,7 @@ void sendResponse(WiFiClient &client) {
   client.println(R"(
         };
       </script>
+      <script src="https://cdn.jsdelivr.net/gh/evanjpeterson/thermostat@0.1.0/frontend/dist/thermostat-control.0.1.0.bundle.js"></script>
     </body>
     </html>
   )");
