@@ -1,3 +1,3 @@
-const thermostatGlobals = {
+window.thermostatGlobals = {
   ledEnabled: true,
 };
