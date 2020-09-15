@@ -10,16 +10,14 @@ module.exports = {
           loader: "babel-loader",
         },
       },
-      {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader"],
-      },
     ],
   },
+  entry: path.join(__dirname, "src/index.jsx"),
   output: {
     path: path.join(__dirname, "test"),
     filename: "thermostat-control.bundle.js",
   },
+  devtool: "eval-source-map",
   devServer: {
     contentBase: path.join(__dirname, "test"),
   },

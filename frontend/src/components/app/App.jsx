@@ -1,5 +1,5 @@
 import React from "react";
-import "./App.css";
+import styled, { css } from "styled-components";
 
 export const App = ({ ledEnabled }) => (
   <>
@@ -7,10 +7,21 @@ export const App = ({ ledEnabled }) => (
     <p>LED is currently {ledEnabled ? "on" : "off"}</p>
     <p>
       <a href={ledEnabled ? "/led/off" : "/led/on"}>
-        <button className={ledEnabled ? "button" : "button button2"}>
-          Flip
-        </button>
+        <Button isOn={ledEnabled}>Flip</Button>
       </a>
     </p>
   </>
+);
+
+const Button = styled.button(
+  ({ isOn }) => css`
+    background-color: ${isOn ? "#4caf50" : "#555555"};
+    border: none;
+    color: white;
+    padding: 16px 40px;
+    text-decoration: none;
+    font-size: 30px;
+    margin: 2px;
+    cursor: pointer;
+  `
 );
