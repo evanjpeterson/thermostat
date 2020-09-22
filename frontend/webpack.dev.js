@@ -8,7 +8,7 @@ module.exports = merge(common, {
     path: path.join(__dirname, "test"),
     filename: "[name].bundle.js",
   },
-  devtool: "eval-source-map",
+  devtool: "source-map",
   devServer: {
     contentBase: path.join(__dirname, "test"),
   },
