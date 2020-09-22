@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import styled, { css } from "styled-components";
 import { ThermostatContext } from "thermostat-context";
 
 export const ScheduleGrid = () => {
@@ -6,15 +7,20 @@ export const ScheduleGrid = () => {
 
   return (
     <>
-      {/* do a <tr/> with clickable hour cells */}
-      {schedule.map((day, dayIndex) =>
-        // open a <tr/> and do an initial clickable day cell
-        day.map((hour, hourIndex) => (
-          <p>
-            d{dayIndex} h{hourIndex}
-          </p>
-        ))
-      )}
+      <tr>
+        <td> </td>
+        {schedule[0].map((_, hourIndex) => (
+          <td>h{hourIndex}</td>
+        ))}
+      </tr>
+      {schedule.map((day, dayIndex) => (
+        <tr>
+          <td>d{dayIndex}</td>
+          {day.map((hour) => (
+            <td>_</td>
+          ))}
+        </tr>
+      ))}
     </>
   );
 };
