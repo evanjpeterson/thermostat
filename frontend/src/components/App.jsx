@@ -1,15 +1,11 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import { ScheduleGrid } from "components/ScheduleGrid";
 
-export const App = ({ ledEnabled }) => (
+export const App = () => (
   <>
     <h1>Thermostat Control</h1>
-    <p>LED is currently {ledEnabled ? "on" : "off"}</p>
-    <p>
-      <a href={ledEnabled ? "/led/off" : "/led/on"}>
-        <Button isOn={ledEnabled}>Flip</Button>
-      </a>
-    </p>
+    <ScheduleGrid />
   </>
 );
 

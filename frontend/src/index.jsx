@@ -1,12 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { createGlobalStyle } from "styled-components";
-import { App } from "./components/app/App";
+import { ThermostatContext } from "thermostat-context";
+import { App } from "components/App";
 
 const root = document.createElement("div");
 document.body.appendChild(root);
-
-const thermostatGlobals = window.thermostatGlobals || {};
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -17,10 +16,14 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+const thermostatGlobals = window.thermostatGlobals || {};
+
 ReactDOM.render(
   <React.StrictMode>
     <GlobalStyle />
-    <App ledEnabled={thermostatGlobals.ledEnabled || false} />
+    <ThermostatContext.Provider value={thermostatGlobals}>
+      <App />
+    </ThermostatContext.Provider>
   </React.StrictMode>,
   root
 );
