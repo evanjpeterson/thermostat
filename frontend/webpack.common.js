@@ -11,7 +11,7 @@ module.exports = {
         exclude: /node_modules/,
         resolve: {
           extensions: [".ts", ".tsx", ".js", ".jsx"],
-          modules: ["node_modules", "src"],
+          modules: ["src", "node_modules"],
         },
         test: /\.(ts|tsx|js|jsx)$/,
         use: {
