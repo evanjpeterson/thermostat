@@ -6,6 +6,8 @@ export const useScheduleContextData = (
 ): ScheduleContextData => {
   const [schedule, setSchedule] = useState(initialSchedule);
 
+  // TODO: keep track of states to support an undo button
+
   return {
     schedule,
     setSchedule,

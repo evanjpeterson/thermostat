@@ -8,11 +8,11 @@ export type ThermostatGlobals = {
   schedule: Schedule;
 };
 
-export type Schedule = ScheduleDay[];
+export type Schedule = DaySchedule[];
 
-export type ScheduleDay = ScheduleHour[];
+export type DaySchedule = HourSchedule[];
 
-export type ScheduleHour = {
+export type HourSchedule = {
   heat: boolean;
   cool: boolean;
   temp: number | null;
