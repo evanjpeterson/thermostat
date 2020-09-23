@@ -1,8 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { createGlobalStyle } from "styled-components";
-import { ThermostatContext } from "thermostat-context";
+import { ScheduleContext } from "context";
 import { App } from "components/App";
+import { useScheduleContextData } from "hooks";
 
 const root = document.createElement("div");
 document.body.appendChild(root);
@@ -16,14 +17,21 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const thermostatGlobals = window.thermostatGlobals || {};
+const thermostatGlobals = window.thermostatGlobals || { schedule: [] };
 
-ReactDOM.render(
-  <React.StrictMode>
-    <GlobalStyle />
-    <ThermostatContext.Provider value={thermostatGlobals}>
-      <App />
-    </ThermostatContext.Provider>
-  </React.StrictMode>,
-  root
-);
+const Root = () => {
+  const scheduleContextData = useScheduleContextData(
+    thermostatGlobals.schedule
+  );
+
+  return (
+    <React.StrictMode>
+      <GlobalStyle />
+      <ScheduleContext.Provider value={scheduleContextData}>
+        <App />
+      </ScheduleContext.Provider>
+    </React.StrictMode>
+  );
+};
+
+ReactDOM.render(<Root />, root);

@@ -1,11 +1,17 @@
 import React, { useContext } from "react";
 import styled, { css } from "styled-components";
-import { ThermostatContext } from "thermostat-context";
+import { ScheduleContext } from "context";
 import { hours, days } from "../constants";
 import { ScheduleCell } from "components/ScheduleCell";
 
 export const ScheduleGrid = () => {
-  const { schedule } = useContext(ThermostatContext);
+  const { schedule } = useContext(ScheduleContext);
+
+  /* TODO: needs state
+    selected columns and rows
+    onChange prop passed down to cells
+      -> when a cell changes, call setSchedule() with all updated cells
+  */
 
   return (
     <>
@@ -19,7 +25,7 @@ export const ScheduleGrid = () => {
         <tr>
           <td>{days[dayIndex]}</td>
           {day.map((hour) => (
-            <ScheduleCell />
+            <ScheduleCell hour={hour} />
           ))}
         </tr>
       ))}

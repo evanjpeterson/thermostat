@@ -17,3 +17,8 @@ export type ScheduleHour = {
   cool: boolean;
   temp: number | null;
 };
+
+export type ScheduleContextData = {
+  schedule: Schedule;
+  setSchedule: (schedule: Schedule) => void;
+};
