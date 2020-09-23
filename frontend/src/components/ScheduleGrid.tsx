@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import styled, { css } from "styled-components";
 import { ThermostatContext } from "thermostat-context";
+import { ScheduleCell } from "components/ScheduleCell";
 
 export const ScheduleGrid = () => {
   const { schedule } = useContext(ThermostatContext);
@@ -8,7 +9,7 @@ export const ScheduleGrid = () => {
   return (
     <>
       <tr>
-        <td> </td>
+        <td></td>
         {schedule[0].map((_, hourIndex) => (
           <td>h{hourIndex}</td>
         ))}
@@ -17,7 +18,7 @@ export const ScheduleGrid = () => {
         <tr>
           <td>d{dayIndex}</td>
           {day.map((hour) => (
-            <td>_</td>
+            <ScheduleCell />
           ))}
         </tr>
       ))}

@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    // JS can be imported into TS files.
+    "allowJs": true,
+    "baseUrl": "src",
+    // Import non-ES modules as default imports.
+    "esModuleInterop": true,
+    // Throw errors for features that Babel (single file transpilation) cannot manage.
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "moduleResolution": "node",
+    // Babel will transpile the code, no need for ts to emit anything.
+    "noEmit": true,
+    // Don't type-check node_modules.
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "esnext"
+  },
+  "include": ["src/**/*"]
+}
