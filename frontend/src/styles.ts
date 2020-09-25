@@ -9,6 +9,7 @@ export const styles = {
   lamegrey: Color("#555"),
   heatred: Color("#f64620"),
   coolblue: Color("#2081f6"),
+  bothpurple: Color("#602eee"),
   letterspacing: ".1em",
   borderradius: ".3em",
 };

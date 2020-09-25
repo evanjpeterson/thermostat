@@ -27,5 +27,5 @@ export const hours = [
 
 export const days = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
 
-export const minTemp = 0;
-export const maxTemp = 99;
+export const minTemp = 59;
+export const maxTemp = 90;

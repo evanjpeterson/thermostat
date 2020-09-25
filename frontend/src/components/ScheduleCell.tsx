@@ -6,6 +6,9 @@ import { styles } from "styles";
 import { minTemp, maxTemp } from "../constants";
 import { CoolToggle, HeatToggle } from "components/SettingToggle";
 
+const minInputTemp = 0;
+const maxInputTemp = 99;
+
 type ScheduleCellProps = {
   schedule: HourSchedule;
   onScheduleChange: (schedule: HourSchedule) => void;
@@ -28,7 +31,7 @@ export const ScheduleCell: React.FunctionComponent<ScheduleCellProps> = ({
     const temp = parseNumber(rawTemp);
 
     if (isNumber(temp)) {
-      const safeTemp = Math.min(Math.max(temp, minTemp), maxTemp);
+      const safeTemp = Math.min(Math.max(temp, minInputTemp), maxInputTemp);
       onScheduleChange({ ...schedule, temp: safeTemp });
     }
   };
@@ -54,10 +57,35 @@ export const ScheduleCell: React.FunctionComponent<ScheduleCellProps> = ({
           value={temp || ""}
           onChange={onTempChange}
           placeholder="-"
+          schedule={schedule}
         />
       </InnerCell>
     </Cell>
   );
+};
+
+const getTempColor = (schedule: HourSchedule) => {
+  const { heat, cool, temp } = schedule;
+
+  if (!temp || !(heat || cool)) {
+    return styles.lamegrey;
+  }
+
+  const baseColor =
+    heat && cool ? styles.bothpurple : heat ? styles.heatred : styles.coolblue;
+
+  // Cap dynamic colors within a range of temperatures the thermostat will actually accept.
+  const safeTemp = Math.min(Math.max(temp, minTemp), maxTemp);
+  // Find the mid-temperature in the range and figure out how far away the selected temperature is.
+  const midTemp = minTemp + (maxTemp - minTemp) / 2;
+  const tempDistance = safeTemp - midTemp;
+  // Convert to a scalar than can be used to lighten/darken the base color.
+  const colorDamper = 3;
+  const colorDifferential = tempDistance / ((midTemp - minTemp) * colorDamper);
+
+  return colorDifferential > 0
+    ? baseColor.darken(colorDifferential)
+    : baseColor.lighten(Math.abs(colorDifferential));
 };
 
 const Cell = styled.td`
@@ -86,13 +114,13 @@ const ToggleContainer = styled.div`
   }
 `;
 
-const TempInput = styled.input`
+const TempInput = styled.input<Pick<ScheduleCellProps, "schedule">>`
   max-width: 2em;
   font-size: 2em;
   text-align: right;
   border: none;
   background: none;
-  color: ${styles.litewite.hex()};
+  color: ${(props) => getTempColor(props.schedule).hex()};
   font-weight: 200;
   margin-right: 0.1em;
   margin-bottom: 0.1em;

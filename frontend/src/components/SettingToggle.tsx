@@ -42,17 +42,17 @@ export const HeatToggle: React.FunctionComponent<NeutralToggleProps> = (
 
 const getToggleColor = (mode: ToggleableSetting, enabled: boolean) => {
   return enabled && mode === "cool"
-    ? styles.coolblue.hex()
+    ? styles.coolblue
     : enabled && mode === "heat"
-    ? styles.heatred.hex()
-    : styles.lamegrey.hex();
+    ? styles.heatred
+    : styles.lamegrey;
 };
 
 const Toggle = styled.div<Pick<SettingToggleProps, "mode" | "enabled">>`
   user-select: none;
   font-size: 0.9em;
   font-weight: ${(props) => (props.enabled ? 600 : 400)};
-  color: ${(props) => getToggleColor(props.mode, props.enabled)};
+  color: ${(props) => getToggleColor(props.mode, props.enabled).hex()};
 
   :hover {
     cursor: pointer;
