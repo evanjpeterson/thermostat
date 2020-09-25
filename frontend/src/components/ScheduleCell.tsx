@@ -2,6 +2,7 @@ import React, { ChangeEventHandler } from "react";
 import styled, { css } from "styled-components";
 import { HourSchedule } from "types";
 import { isNumber, parseNumber } from "utils";
+import { styles } from "styles";
 
 type ScheduleCellProps = {
   schedule: HourSchedule;
@@ -31,24 +32,55 @@ export const ScheduleCell: React.FunctionComponent<ScheduleCellProps> = ({
 
   return (
     <Cell>
-      <TempInput
-        type="string"
-        value={temp || ""}
-        onChange={onTempChange}
-        placeholder="-"
-      ></TempInput>
+      <InnerCell>
+        <TempInput
+          type="string"
+          value={temp || ""}
+          onChange={onTempChange}
+          placeholder="-"
+        ></TempInput>
+      </InnerCell>
     </Cell>
   );
 };
 
 const Cell = styled.td`
-  width: 5em;
+  background-color: ${styles.almostdarkerbg};
+  border-radius: ${styles.borderradius};
+`;
+
+const InnerCell = styled.div`
   height: 4em;
+  width: 5em;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
 `;
 
 const TempInput = styled.input`
-  max-width: 4em;
-  max-height: 4em;
-  font-size: 1em;
+  max-width: 2em;
+  font-size: 2em;
+  text-align: right;
   border: none;
+  background: none;
+  color: ${styles.litewite};
+  font-weight: 200;
+  margin-right: 0.1em;
+  margin-bottom: 0.1em;
+  text-align: center;
+
+  ::placeholder {
+    font-weight: 100;
+    color: ${styles.litewite};
+  }
+
+  :focus {
+    /* consumers of this app don't use screen readers */
+    outline: none;
+
+    ::placeholder {
+      color: transparent;
+    }
+  }
 `;
