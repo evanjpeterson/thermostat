@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 import { HourSchedule } from "types";
 import { isNumber, parseNumber } from "utils";
 import { styles } from "styles";
+import { minTemp, maxTemp } from "../constants";
 
 type ScheduleCellProps = {
   schedule: HourSchedule;
@@ -26,7 +27,8 @@ export const ScheduleCell: React.FunctionComponent<ScheduleCellProps> = ({
     const temp = parseNumber(rawTemp);
 
     if (isNumber(temp)) {
-      onScheduleChange({ ...schedule, temp });
+      const safeTemp = Math.min(Math.max(temp, minTemp), maxTemp);
+      onScheduleChange({ ...schedule, temp: safeTemp });
     }
   };
 
@@ -35,6 +37,7 @@ export const ScheduleCell: React.FunctionComponent<ScheduleCellProps> = ({
       <InnerCell>
         <TempInput
           type="string"
+          maxLength={2}
           value={temp || ""}
           onChange={onTempChange}
           placeholder="-"
@@ -45,7 +48,7 @@ export const ScheduleCell: React.FunctionComponent<ScheduleCellProps> = ({
 };
 
 const Cell = styled.td`
-  background-color: ${styles.almostdarkerbg};
+  background: ${styles.almostdarkerbg};
   border-radius: ${styles.borderradius};
 `;
 
