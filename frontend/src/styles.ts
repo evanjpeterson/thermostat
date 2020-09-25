@@ -7,9 +7,9 @@ export const styles = {
   darkbg: Color("#333"),
   litewite: Color("#fafafa"),
   lamegrey: Color("#555"),
-  heatred: Color("#f64620"),
-  coolblue: Color("#2081f6"),
-  bothpurple: Color("#602eee"),
+  heatred: Color("#e74c3c"),
+  coolblue: Color("#3498db"),
+  bothpurple: Color("#8e44ad"),
   letterspacing: ".1em",
   borderradius: ".3em",
 };
