@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { ScheduleContext } from "context";
 import { hours, days } from "../constants";
 import { ScheduleCell } from "components/ScheduleCell";
@@ -69,7 +69,7 @@ export const ScheduleGrid = () => {
 };
 
 const Container = styled.div`
-  background-color: ${styles.darkerbg};
+  background-color: ${styles.darkerbg.hex()};
   padding: 0.5em 2em 2em 0;
   border-radius: ${styles.borderradius};
 `;
@@ -80,13 +80,13 @@ const Table = styled.table`
 
 const HeaderCellText = styled.p`
   font-weight: 300;
-  color: ${styles.litewite};
+  color: ${styles.litewite.hex()};
   letter-spacing: ${styles.letterspacing};
   border-radius: ${styles.borderradius};
 
   :hover {
     cursor: pointer;
-    background-color: ${styles.darkbg};
+    background-color: ${styles.darkbg.hex()};
   }
 `;
 

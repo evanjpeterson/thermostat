@@ -11,7 +11,7 @@ export const App = () => (
 );
 
 const Header = styled.h1`
-  color: ${styles.litewite};
+  color: ${styles.litewite.hex()};
   letter-spacing: ${styles.letterspacing};
   font-weight: 300;
 `;

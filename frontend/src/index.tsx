@@ -18,7 +18,7 @@ const GlobalStyle = createGlobalStyle`
     display: flex;
     justify-content: center;
     text-align: center;
-    background: ${styles.darkestbg};
+    background: ${styles.darkestbg.hex()};
   }
 `;
 
