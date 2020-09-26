@@ -19,11 +19,6 @@ export const ScheduleGrid = () => {
   });
   const { selectedDays, selectedHours } = state;
 
-  /* TODO: 
-    onChange prop passed down to cells
-      -> when a cell changes, call setSchedule() with all updated cells
-  */
-
   const cellIsSelected = (day: number, hour: number) =>
     (selectedDays.has(day) && selectedHours.has(hour)) ||
     (selectedDays.has(day) && selectedHours.size === 0) ||
@@ -31,17 +26,22 @@ export const ScheduleGrid = () => {
 
   const onScheduleChange = (
     hourSchedule: HourSchedule,
-    dayIndex: number,
-    hourIndex: number
+    selectedDayIndex: number,
+    selectedHourIndex: number
   ) => {
-    // TODO: cleaner way to do this?
-    // maybe create a map structure instead of an array for all the data hmmm?
-
-    const newDaySchedule = [...schedule[dayIndex]];
-    newDaySchedule.splice(hourIndex, 1, hourSchedule);
-
     const newSchedule = [...schedule];
-    newSchedule.splice(dayIndex, 1, newDaySchedule);
+    schedule.map((daySchedule, dayIndex) => {
+      const newDaySchedule = [...newSchedule[dayIndex]];
+      daySchedule.map((_, hourIndex) => {
+        if (
+          cellIsSelected(dayIndex, hourIndex) ||
+          (dayIndex === selectedDayIndex && hourIndex === selectedHourIndex)
+        ) {
+          newDaySchedule.splice(hourIndex, 1, hourSchedule);
+        }
+      });
+      newSchedule.splice(dayIndex, 1, newDaySchedule);
+    });
 
     setSchedule(newSchedule);
   };
