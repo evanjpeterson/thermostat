@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { ScheduleContext } from "context";
 import { hours, days } from "../constants";
@@ -6,15 +6,22 @@ import { ScheduleCell } from "components/ScheduleCell";
 import { HourSchedule } from "types";
 import { styles } from "styles";
 
+type ScheduleGridState = {
+  selectedDays: Set<number>;
+  selectedHours: Set<number>;
+};
+
 export const ScheduleGrid = () => {
   const { schedule, setSchedule } = useContext(ScheduleContext);
+  const [state, setState] = useState<ScheduleGridState>({
+    selectedDays: new Set(),
+    selectedHours: new Set(),
+  });
+  const { selectedDays, selectedHours } = state;
 
   /* TODO: needs state
-    selected columns and rows
     onChange prop passed down to cells
       -> when a cell changes, call setSchedule() with all updated cells
-    onClick prop passed down to header cells (hours and days)
-      -> when clicked, add/remove from selected columns/rows
   */
 
   const onScheduleChange = (
@@ -34,6 +41,28 @@ export const ScheduleGrid = () => {
     setSchedule(newSchedule);
   };
 
+  const onHourClick = (hour: number) => {
+    const previouslySelected = selectedHours.delete(hour);
+    if (!previouslySelected) {
+      selectedHours.add(hour);
+    }
+    setState({
+      ...state,
+      selectedHours,
+    });
+  };
+
+  const onDayClick = (day: number) => {
+    const previouslySelected = selectedDays.delete(day);
+    if (!previouslySelected) {
+      selectedDays.add(day);
+    }
+    setState({
+      ...state,
+      selectedDays,
+    });
+  };
+
   return (
     <Container>
       <Table>
@@ -42,14 +71,24 @@ export const ScheduleGrid = () => {
             <td></td>
             {schedule[0].map((_, hourIndex) => (
               <td key={hourIndex}>
-                <ColHeaderCellText>{hours[hourIndex]}</ColHeaderCellText>
+                <HourHeaderCell
+                  onClick={() => onHourClick(hourIndex)}
+                  selected={selectedHours.has(hourIndex)}
+                >
+                  {hours[hourIndex]}
+                </HourHeaderCell>
               </td>
             ))}
           </tr>
           {schedule.map((day, dayIndex) => (
             <tr key={dayIndex}>
               <td>
-                <RowHeaderCellText>{days[dayIndex]}</RowHeaderCellText>
+                <DayHeaderCell
+                  onClick={() => onDayClick(dayIndex)}
+                  selected={selectedDays.has(dayIndex)}
+                >
+                  {days[dayIndex]}
+                </DayHeaderCell>
               </td>
               {day.map((hour, hourIndex) => (
                 <ScheduleCell
@@ -78,11 +117,14 @@ const Table = styled.table`
   border-spacing: 0.2em;
 `;
 
-const HeaderCellText = styled.p`
+const HeaderCell = styled.div<{ selected: boolean }>`
   font-weight: 300;
   color: ${styles.litewite.hex()};
   letter-spacing: ${styles.letterspacing};
   border-radius: ${styles.borderradius};
+  user-select: none;
+  border: ${(props) =>
+    `.1em solid ${props.selected ? styles.squallgreen : "transparent"}`};
 
   :hover {
     cursor: pointer;
@@ -90,13 +132,13 @@ const HeaderCellText = styled.p`
   }
 `;
 
-const RowHeaderCellText = styled(HeaderCellText)`
+const DayHeaderCell = styled(HeaderCell)`
   text-align: left;
   margin: 0 0.2em;
   padding: 1em 1em;
 `;
 
-const ColHeaderCellText = styled(HeaderCellText)`
+const HourHeaderCell = styled(HeaderCell)`
   text-align: right;
   margin: 0;
   margin-bottom: 0.2em;

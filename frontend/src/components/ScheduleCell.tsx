@@ -121,7 +121,7 @@ const TempInput = styled.input<Pick<ScheduleCellProps, "schedule">>`
   border: none;
   background: none;
   color: ${(props) => getTempColor(props.schedule).hex()};
-  font-weight: 200;
+  font-weight: 300;
   margin-right: 0.1em;
   margin-bottom: 0.1em;
   text-align: center;
