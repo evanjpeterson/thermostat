@@ -11,11 +11,13 @@ const maxInputTemp = 99;
 
 type ScheduleCellProps = {
   schedule: HourSchedule;
+  selected: boolean;
   onScheduleChange: (schedule: HourSchedule) => void;
 };
 
 export const ScheduleCell: React.FunctionComponent<ScheduleCellProps> = ({
   schedule,
+  selected,
   onScheduleChange,
 }) => {
   const { cool, heat, temp } = schedule;
@@ -45,7 +47,7 @@ export const ScheduleCell: React.FunctionComponent<ScheduleCellProps> = ({
   };
 
   return (
-    <Cell>
+    <Cell selected={selected}>
       <InnerCell>
         <ToggleContainer>
           <HeatToggle enabled={heat} onChange={onHeatChange} />
@@ -88,9 +90,11 @@ const getTempColor = (schedule: HourSchedule) => {
     : baseColor.lighten(Math.abs(colorDifferential));
 };
 
-const Cell = styled.td`
+const Cell = styled.td<Pick<ScheduleCellProps, "selected">>`
   background: ${styles.almostdarkerbg.hex()};
   border-radius: ${styles.borderradius};
+  border: ${(props) =>
+    `.1em solid ${props.selected ? styles.squallgreen : "transparent"}`};
 `;
 
 const InnerCell = styled.div`

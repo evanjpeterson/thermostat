@@ -19,10 +19,15 @@ export const ScheduleGrid = () => {
   });
   const { selectedDays, selectedHours } = state;
 
-  /* TODO: needs state
+  /* TODO: 
     onChange prop passed down to cells
       -> when a cell changes, call setSchedule() with all updated cells
   */
+
+  const cellIsSelected = (day: number, hour: number) =>
+    (selectedDays.has(day) && selectedHours.has(hour)) ||
+    (selectedDays.has(day) && selectedHours.size === 0) ||
+    (selectedHours.has(hour) && selectedDays.size === 0);
 
   const onScheduleChange = (
     hourSchedule: HourSchedule,
@@ -94,6 +99,7 @@ export const ScheduleGrid = () => {
                 <ScheduleCell
                   key={hourIndex}
                   schedule={hour}
+                  selected={cellIsSelected(dayIndex, hourIndex)}
                   onScheduleChange={(schedule) =>
                     onScheduleChange(schedule, dayIndex, hourIndex)
                   }
